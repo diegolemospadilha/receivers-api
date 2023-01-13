@@ -1,0 +1,38 @@
+{
+  "name": "receivers-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node dist/main.js",
+    "dev": "ts-node-dev src/main.ts",
+    "build": "rimraf dist && tsc",
+    "prepare": "husky install",
+    "lint": "eslint ./src --ext .ts",
+    "lint:fix": "eslint ./src --ext .ts --fix",
+    "lint-staged": "lint-staged",
+    "knex:migrate:make": "knex --knexfile src/infrastructure/database/knexfile.ts migrate:make",
+    "knex:migrate:latest": "knex --knexfile src/infrastructure/database/knexfile.ts migrate:latest",
+    "knex:migrate:rollback": "knex --knexfile src/infrastructure/database/knexfile.ts migrate:rollback"
+  },
+  "dependencies": {
+    "@fastify/type-provider-typebox": "^2.4.0",
+    "@sinclair/typebox": "^0.25.20",
+    "axios": "^1.2.2",
+    "fastify": "^4.11.0",
+    "jest": "^29.3.1",
+    "knex": "^2.3.0",
+    "pg": "^8.8.0",
+    "supertest": "^6.3.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.2.5",
+    "@types/node": "^18.11.18",
+    "@types/supertest": "^2.0.12",
+    "dotenv": "^16.0.3",
+    "ts-jest": "^29.0.1",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.9.4"
+  }
+}

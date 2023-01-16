@@ -1,4 +1,5 @@
 require('dotenv').config()
+import { ReceiverDummy } from './ReceiverDummy';
 import { request } from './setup';
 describe('Update receiver integration tests', () => {
 
@@ -7,25 +8,13 @@ describe('Update receiver integration tests', () => {
     let idToUpdated;
 
     beforeAll(async () => {
-        input = {
-            name: 'Johnn Deer',
-            status: 'DRAFT',
-            email: "email@email.com",
-            pixKeyType: 'EMAIL',
-            pixKey: "email@email.com"
-        }
+        input = ReceiverDummy.stub();
         const { body } = await request.post(`/receivers`).send(input);
         idToUpdated = body.id   
     })
 
     beforeEach(() => {
-        inputToUpdated = {
-            name: 'New name',
-            status: 'VALID',
-            email: "newemail@email.com",
-            pixKeyType: 'EMAIL',
-            pixKey: "email@email.com"
-        }
+        inputToUpdated = ReceiverDummy.stub();
     })
     it('should update a receiver', async () => {
         const { status, body } = await request.put(`/receivers/${idToUpdated}`).send(

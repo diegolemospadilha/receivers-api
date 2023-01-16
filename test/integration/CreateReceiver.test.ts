@@ -1,27 +1,18 @@
+import { ReceiverInput } from '../../src/domain/dto/ReceiverInput';
+import { ReceiverDummy } from './ReceiverDummy';
 require('dotenv').config()
 import { request } from './setup';
 describe('Create receiver integration tests', () => {
 
-    let input: any;
+    let input: ReceiverInput;
 
     beforeEach(() => {
-        input = {
-            name: 'Johnn Deer',
-            status: 'DRAFT',
-            email: "email@email.com",
-            pixKeyType: 'EMAIL',
-            pixKey: "email@email.com"
-        }
+        input = ReceiverDummy.stub();
     })
     it('should create a new receiver', async () => {
 
-        const { status, body } = await request.post(`/receivers`).send({
-            name: 'Johnn Deer',
-            status: 'DRAFT',
-            email: "email@email.com",
-            pixKeyType: 'EMAIL',
-            pixKey: "email@email.com"
-        })
+        const input = ReceiverDummy.stub();
+        const { status, body } = await request.post(`/receivers`).send(input)
 
         expect(status).toBe(201)
         expect(body.id).toBeDefined()

@@ -1,3 +1,4 @@
+import { GetAllReceiverOutput } from "../dto/GetAllReceiverOutput";
 import { ReceiverInput } from "../dto/ReceiverInput";
 import { ReceiverOutput } from "../dto/ReceiverOutput";
 import { PixKeyType } from "../PixKeyType";
@@ -25,6 +26,16 @@ export function dbToDomain(row: any): Receiver {
         row.pix_key_type as PixKeyType,
         row.pix_key
     )
+}
+
+export function dbToOutputWithPaginate(rows: any, currentPage: number, totalPages): GetAllReceiverOutput {
+    const output = {
+        totalPages: parseInt(totalPages), 
+        currentPage,
+        data: rows.map(dbToDomain)
+    }
+
+    return output;
 }
 
 export function domainToOutput(domain: Receiver): ReceiverOutput {

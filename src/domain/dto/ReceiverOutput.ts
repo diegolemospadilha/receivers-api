@@ -1,5 +1,3 @@
 import { ReceiverInput } from "./ReceiverInput";
 
-export type ReceiverOutput = ReceiverInput & {
-    id: number | undefined,
-}
+export type ReceiverOutput = ReceiverInput;

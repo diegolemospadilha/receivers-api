@@ -4,4 +4,5 @@ export default interface ReceiverRepository {
     getAll(): Promise<Receiver[]>
     getById(id: number): Promise<Receiver>
     create(receiver: Receiver): Promise<number>
+    update(receiver: Receiver): Promise<number>
 }

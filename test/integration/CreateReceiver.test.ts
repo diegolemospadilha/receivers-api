@@ -45,8 +45,8 @@ describe('Create receiver integration tests', () => {
 
         expect(status).toBe(400)
         expect(body.statusCode).toBeDefined()
-        expect(body.error).toEqual('Bad Request')
-        expect(body.message).toBeDefined()
+        expect(body.message).toEqual('Bad Request')
+        expect(body.details).toBeDefined()
                    
     })
 })

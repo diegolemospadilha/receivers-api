@@ -6,7 +6,7 @@ import { ReceiverStatus } from "../ReceiverStatus";
 
 export function inputToDomain(input: ReceiverInput): Receiver {
     return new Receiver(
-        undefined,
+        input.id ?? undefined,
         input.name,
         input.email,
         input.status as ReceiverStatus,
@@ -16,6 +16,7 @@ export function inputToDomain(input: ReceiverInput): Receiver {
 }
 
 export function dbToDomain(row: any): Receiver {
+    if(!row) return undefined;
     return new Receiver(
         row.id,
         row.name,

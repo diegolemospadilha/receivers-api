@@ -1,6 +1,5 @@
 import { GetAllReceiverInput } from "../domain/dto/GetAllReceiverInput";
 import { GetAllReceiverOutput } from "../domain/dto/GetAllReceiverOutput";
-import { ReceiverOutput } from "../domain/dto/ReceiverOutput";
 import ReceiverRepository from "../domain/repository/ReceiverRepository";
 
 export default class GetAllReceivers {

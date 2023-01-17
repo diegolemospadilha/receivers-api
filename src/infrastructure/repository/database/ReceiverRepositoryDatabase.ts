@@ -23,6 +23,7 @@ export class ReceiverRepositoryDatabase implements ReceiverRepository {
         }
         return query;
     }
+
     async getAll(filters: GetAllReceiverInput): Promise<GetAllReceiverOutput> {
 
         const LIMIT_PER_PAGE = 10;
@@ -106,6 +107,20 @@ export class ReceiverRepositoryDatabase implements ReceiverRepository {
                 await tx.commit();
                 return receiverId.id;
 
+        } catch (error) {
+            console.log('error', error);
+            await tx.rollback(error);
+            throw new ApplicationError('Internal Error', 'Ínternal Server Error', 500);
+        }
+    }
+
+    async delete(idsToBeDeleted: number[]): Promise<void> {
+        const tx = await db.transaction();
+        try {
+            await db('receivers')
+                .del().whereIn('id', idsToBeDeleted)
+
+            await tx.commit();
         } catch (error) {
             console.log('error', error);
             await tx.rollback(error);

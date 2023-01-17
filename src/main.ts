@@ -1,4 +1,5 @@
 import CreateReceiver from "./application/CreateReceiver";
+import DeleteReceiversByBatch from "./application/DeleteReceiversInBatches";
 import GetAllReceivers from "./application/GetAllReceivers";
 import UpdateReceiver from "./application/UpdateReceiver";
 import ReceiverController from "./infrastructure/controllers/ReceiverController";
@@ -19,12 +20,14 @@ const createReceiver = new CreateReceiver(repository)
 const getAllReceiver = new GetAllReceivers(repository)
 
 const updateReceiver = new UpdateReceiver(repository)
+const deleteReceiverInBatchs = new DeleteReceiversByBatch(repository)
 
 const receiverController = new ReceiverController(
     httpServer, 
     createReceiver,
     getAllReceiver,
-    updateReceiver
-    )
+    updateReceiver,
+    deleteReceiverInBatchs
+)
 
 httpServer.listen(3000)

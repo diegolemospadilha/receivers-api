@@ -58,6 +58,19 @@ export const getReceiversBaseSchema = Type.Object({
     )
 })
 
+export const deleteReceiversInBatches = Type.Object({
+    ids: Type.Array(
+        Type.Number({
+            minimum: 1
+        }),
+        {
+         uniqueItems: true,
+         minItems:1,
+         description: 'A list with receiver`s id to be deleted'
+        }
+    ), 
+})
+
 export const getReceiversDoc: FastifySchema = {
     querystring: getReceiversBaseSchema
 }
@@ -65,4 +78,8 @@ export const getReceiversDoc: FastifySchema = {
 export const updateReceiverDoc: FastifySchema = {
     body: receiverBaseSchema,
     params: receiverIdBaseSchema
+}
+
+export const deleteReceiversInBatchDoc: FastifySchema = {
+    body: deleteReceiversInBatches,
 }

@@ -1,7 +1,8 @@
 import CreateReceiver from "../../application/CreateReceiver";
+import DeleteReceiversByBatch from "../../application/DeleteReceiversInBatches";
 import GetAllReceivers from "../../application/GetAllReceivers";
 import UpdateReceiver from "../../application/UpdateReceiver";
-import { getReceiversDoc, receiverBaseSchema, updateReceiverDoc } from "../http/docs/receiver";
+import { deleteReceiversInBatchDoc, getReceiversDoc, receiverBaseSchema, updateReceiverDoc } from "../http/docs/receiver";
 import HttpServer from "../http/HttpServer";
 
 export default class ReceiverController {
@@ -9,7 +10,8 @@ export default class ReceiverController {
         readonly httpServer: HttpServer,
         readonly createReceiverUseCase: CreateReceiver,
         readonly getAllReceiversUseCase: GetAllReceivers,
-        readonly updateReceiverUseCase: UpdateReceiver
+        readonly updateReceiverUseCase: UpdateReceiver,
+        readonly deleteReceiversByBatch: DeleteReceiversByBatch,
     ){
         httpServer.on("post", "/receivers", {
             schema: {
@@ -50,6 +52,16 @@ export default class ReceiverController {
 
             const data = await updateReceiverUseCase.execute(input);
             return { data, status: 200 };
+        });
+
+        httpServer.on("post", "/receivers/delete-records", {
+            schema: deleteReceiversInBatchDoc
+        },
+            async function (request: any) {
+            const { body } = request;
+
+            const data = await deleteReceiversByBatch.execute(body);
+            return { data, status: 204 };
         });
     }
       

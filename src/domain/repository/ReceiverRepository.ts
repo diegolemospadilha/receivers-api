@@ -7,4 +7,5 @@ export default interface ReceiverRepository {
     getById(id: number): Promise<Receiver>
     create(receiver: Receiver): Promise<number>
     update(receiver: Receiver): Promise<number>
+    delete(idsToBeDeleted: number[]): Promise<void>
 }

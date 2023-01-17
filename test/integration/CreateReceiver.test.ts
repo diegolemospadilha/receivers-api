@@ -1,3 +1,4 @@
+import { after } from 'node:test';
 import { ReceiverInput } from '../../src/domain/dto/ReceiverInput';
 import { ReceiverDummy } from './ReceiverDummy';
 require('dotenv').config()
@@ -9,6 +10,7 @@ describe('Create receiver integration tests', () => {
     beforeEach(() => {
         input = ReceiverDummy.stub();
     })
+
     it('should create a new receiver', async () => {
 
         const input = ReceiverDummy.stub();

@@ -1,4 +1,3 @@
-import { fakerBr } from 'js-brasil'
 import { ReceiverDummy } from './ReceiverDummy';
 require('dotenv').config()
 import { request } from './setup';

@@ -1,4 +1,3 @@
-import { after } from 'node:test';
 import { ReceiverInput } from '../../src/domain/dto/ReceiverInput';
 import { ReceiverDummy } from './ReceiverDummy';
 require('dotenv').config()

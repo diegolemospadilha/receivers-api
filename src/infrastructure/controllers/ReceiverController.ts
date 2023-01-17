@@ -2,7 +2,7 @@ import CreateReceiver from "../../application/CreateReceiver";
 import DeleteReceiversByBatch from "../../application/DeleteReceiversInBatches";
 import GetAllReceivers from "../../application/GetAllReceivers";
 import UpdateReceiver from "../../application/UpdateReceiver";
-import { deleteReceiversInBatchDoc, getReceiversDoc, receiverBaseSchema, updateReceiverDoc } from "../http/docs/receiver";
+import { createReceiverDoc, deleteReceiversInBatchDoc, getReceiversDoc, receiverBaseSchema, updateReceiverDoc } from "../http/docs/receiver";
 import HttpServer from "../http/HttpServer";
 
 export default class ReceiverController {
@@ -14,9 +14,7 @@ export default class ReceiverController {
         readonly deleteReceiversByBatch: DeleteReceiversByBatch,
     ){
         httpServer.on("post", "/receivers", {
-            schema: {
-                body: receiverBaseSchema,
-            }
+            schema: createReceiverDoc
         },
             async function (request: any) {
             const { body } = request;

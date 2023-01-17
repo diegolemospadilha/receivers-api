@@ -10,6 +10,8 @@ import { ReceiverRepositoryDatabase } from "./infrastructure/repository/database
 
 const httpServer = new FastifyAdapter();
 
+Promise.resolve(httpServer.loadSwagger())
+
 httpServer.app.setErrorHandler(composeErrorHandler([
     validationErrorHandler,
 ]))

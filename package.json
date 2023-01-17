@@ -15,9 +15,11 @@
     "knex:migrate:rollback": "knex --knexfile src/infrastructure/database/knexfile.ts migrate:rollback"
   },
   "dependencies": {
-    "@fastify/type-provider-typebox": "^2.4.0",
     "@sinclair/typebox": "^0.25.20",
-    "fastify": "^4.11.0",
+    "fastify": "^3.29.4",
+    "fastify-cors": "6.1.0",
+    "fastify-plugin": "^4.4.0",
+    "fastify-swagger": "^5.1.0",
     "jest": "^29.3.1",
     "js-brasil": "^2.5.3",
     "knex": "^2.3.0",

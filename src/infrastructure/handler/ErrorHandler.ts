@@ -25,7 +25,7 @@ export default function composeErrorHandler(errorHandlers: ErrorHandler[] = []) 
           reply
             .status(handledError.statusCode || 500)
             .send({
-              statusCode: error.statusCode,
+              statusCode: handledError.statusCode,
               message: handledError.message || 'Internal Server Error',
               details: handledError.detailedMessage,
             });

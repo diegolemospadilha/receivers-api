@@ -1,14 +1,15 @@
 import fastify from "fastify";
+import { swaggerOptions } from "./docs/swagger";
 import HttpServer from "./HttpServer";
 export default class FastifyAdapter implements HttpServer {
     readonly app: any;
 
 	 constructor () {
-		this.app = fastify({ logger: { level: 'info' } });
+		this.app = fastify({ logger: { level: 'info' } })
 	}
 
     on(method: string, url: string, schema: any, callback: Function): void {
-        this.app[method](url, schema, async function (req: any, res: any) {
+         this.app[method](url, schema, async function (req: any, res: any) {
 			const { status, data } = await callback(req);
 			res.status(status).send(data);
 		});
@@ -16,5 +17,9 @@ export default class FastifyAdapter implements HttpServer {
 
     listen(port: number): void {
         this.app.listen(port);
+    }
+
+    public async loadSwagger(){
+        await this.app.register(require('fastify-swagger'), swaggerOptions)   
     }
 }

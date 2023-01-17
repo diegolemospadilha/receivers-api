@@ -11,7 +11,10 @@ export const receiverIdBaseSchema = Type.Object({
 })
 
 export const receiverBaseSchema = Type.Object({
-    name: Type.String({ description: 'Receiver`s name' }),
+    name: Type.String({
+        maxLength: 255,
+        description: 'Receiver`s name' 
+    }),
     email: Type.Optional(
         Type.String({
             maxLength: 250,
@@ -21,19 +24,47 @@ export const receiverBaseSchema = Type.Object({
     ),
     status: Type.Enum(ReceiverStatus),
     pixKeyType: Type.Enum(PixKeyType),
-    pixKey: Type.String({ description: 'Receiver`s pix key' }),
+    pixKey: Type.String({
+        maxLength: 255,
+        description: 'Receiver`s pix key' 
+    }),
+})
+
+export const receiverResponseBaseSchema = Type.Object({
+    id: Type.Integer({
+        minimum: 1,
+        description: 'Receiver`s id',
+    }),
+    name: Type.String({
+        maxLength: 255,
+        description: 'Receiver`s name' 
+    }),
+    email: Type.Optional(
+        Type.String({
+            maxLength: 250,
+            description: 'Receiver`s email',
+            format: 'email'
+        }),
+    ),
+    status: Type.Enum(ReceiverStatus),
+    pixKeyType: Type.Enum(PixKeyType),
+    pixKey: Type.String({
+        maxLength: 255,
+        description: 'Receiver`s pix key' 
+    }),
+}, {
+     description: 'Succesful Response'
 })
 
 export const getReceiversBaseSchema = Type.Object({
     name: Type.Optional(
         Type.String({
-            minimum: 1,
+            maxLength: 255,
             description: 'Receiver`s name to be searched',
         })
     ),
     status: Type.Optional(
         Type.String({
-            minimum: 1,
             description: 'Receiver`s status to be searched',
         })
     ),
@@ -45,7 +76,7 @@ export const getReceiversBaseSchema = Type.Object({
     ),
     pixKey: Type.Optional(
         Type.String({
-            minimum: 1,
+            maxLength: 255,
             description: 'Receiver`s pix key to be searched',
         })
     ),
@@ -71,15 +102,104 @@ export const deleteReceiversInBatches = Type.Object({
     ), 
 })
 
+export const receiverNotFoundSchema = Type.Object({
+    statusCode: Type.Number({
+        default: 404
+    }),
+    message: Type.String({
+        default: 'Not found'
+    }),
+    details: Type.String({
+        example: 'Receiver not found with id 100'
+    })
+}, {
+    description: 'Receiver Not Found Response'
+})
+
+export const internalServerErrorSchema = Type.Object({
+    statusCode: Type.Number({
+        default: 500
+    }),
+    message: Type.String({
+        default: 'Internal Error'
+    }),
+    details: Type.String({
+        example: 'Internal Server Error'
+    })
+}, {
+    description: 'Internal Server Error Response'
+})
+
+export const badRequestErrorSchema = Type.Object({
+    statusCode: Type.Number({
+        default: 400
+    }),
+    message: Type.String({
+        default: 'Bad Request'
+    }),
+    details: Type.Array(
+        Type.Object({
+            message: Type.String({}),
+            missingProperty: Type.Optional(Type.String({})),
+            allowedValue: Type.Optional(Type.String({})),
+        })
+    )
+}, {
+    description: 'Bad Request Error Response'
+})
+
+export const getReceiversResponseSchema = Type.Object({
+    totalPages: Type.Integer({
+        description: 'Total pages to be searched',
+        example: 2
+    }),
+    currentPage: Type.Integer({
+        description: 'Current search page',
+        example: 1
+    }),
+    data: Type.Array(receiverResponseBaseSchema) 
+})
+
+export const deleteReceiverInBatchesResponseSchema = Type.Null({
+    description: 'Receivers successfully deleted'
+})
+
+
 export const getReceiversDoc: FastifySchema = {
-    querystring: getReceiversBaseSchema
+    querystring: getReceiversBaseSchema,
+    response: {
+        [200]: getReceiversResponseSchema,
+        [400]: badRequestErrorSchema,
+        [500]: internalServerErrorSchema,
+    }
+}
+
+export const createReceiverDoc: FastifySchema = {
+    body: receiverBaseSchema,
+    params: receiverIdBaseSchema,
+    response: {
+        [200]: receiverResponseBaseSchema,
+        [400]: badRequestErrorSchema,
+        [500]: internalServerErrorSchema,
+    }
 }
 
 export const updateReceiverDoc: FastifySchema = {
     body: receiverBaseSchema,
-    params: receiverIdBaseSchema
+    params: receiverIdBaseSchema,
+    response: {
+        [200]: receiverResponseBaseSchema,
+        [400]: badRequestErrorSchema,
+        [404]: receiverNotFoundSchema,
+        [500]: internalServerErrorSchema,
+    }
 }
 
 export const deleteReceiversInBatchDoc: FastifySchema = {
     body: deleteReceiversInBatches,
+    response: {
+        [204]: deleteReceiverInBatchesResponseSchema,
+        [400]: badRequestErrorSchema,
+        [500]: internalServerErrorSchema,
+    }
 }

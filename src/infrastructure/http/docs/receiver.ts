@@ -176,7 +176,6 @@ export const getReceiversDoc: FastifySchema = {
 
 export const createReceiverDoc: FastifySchema = {
     body: receiverBaseSchema,
-    params: receiverIdBaseSchema,
     response: {
         [200]: receiverResponseBaseSchema,
         [400]: badRequestErrorSchema,

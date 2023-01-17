@@ -1,5 +1,5 @@
 require('dotenv').config()
-import { ReceiverDummy } from './ReceiverDummy';
+import { ReceiverInputDummy } from '../dummies/ReceiverInputDummy';
 import { request } from './setup';
 describe('Delete receivers in batches integration tests', () => {
 
@@ -11,7 +11,7 @@ describe('Delete receivers in batches integration tests', () => {
 
     beforeAll(async () => {
         for(let i=0; i < NUMBER_OF_RECEIVERS_TO_CREATED; i++){
-            input = ReceiverDummy.stub();
+            input = ReceiverInputDummy.stub();
             const { body } = await request.post(`/receivers`).send(input);
             idsToBeDeleted.push(body.id)   
         }

@@ -1,4 +1,4 @@
-import { ReceiverDummy } from './ReceiverDummy';
+import { ReceiverInputDummy } from '../dummies/ReceiverInputDummy';
 require('dotenv').config()
 import { request } from './setup';
 describe('Get all receivers by filters integration tests', () => {
@@ -6,16 +6,9 @@ describe('Get all receivers by filters integration tests', () => {
     let input: any;
 
     beforeAll(async () => {
-        input = ReceiverDummy.stub();
-        const { body } = await request.post(`/receivers`).send(input);
+        input = ReceiverInputDummy.stub();
+        await request.post(`/receivers`).send(input);
     })
-
-    const scenarios = [
-        'name',
-        'status',
-        'pixKeyType',
-        'pixKey',
-     ]
     
     it('should get all receivers by filters', async () => {
         const { status, body } = await request.get(`/receivers`)

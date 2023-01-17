@@ -5,6 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start": "node dist/main.js",
+    "test": "node node_modules/.bin/jest --detectOpenHandles --forceExit --runInBand --verbose --colors",
+    "test:unit": "node node_modules/.bin/jest --testPathPattern=test/unit --detectOpenHandles --forceExit --runInBand --verbose --colors",
+    "test:integration": "node node_modules/.bin/jest --testPathPattern=test/integration --detectOpenHandles --forceExit --runInBand --verbose --colors",
     "dev": "ts-node-dev src/main.ts",
     "build": "rimraf dist && tsc",
     "lint": "eslint ./src --ext .ts",

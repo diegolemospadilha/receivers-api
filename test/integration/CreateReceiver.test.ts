@@ -1,5 +1,5 @@
 import { ReceiverInput } from '../../src/domain/dto/ReceiverInput';
-import { ReceiverDummy } from './ReceiverDummy';
+import { ReceiverInputDummy } from '../dummies/ReceiverInputDummy';
 require('dotenv').config()
 import { request } from './setup';
 describe('Create receiver integration tests', () => {
@@ -7,12 +7,12 @@ describe('Create receiver integration tests', () => {
     let input: ReceiverInput;
 
     beforeEach(() => {
-        input = ReceiverDummy.stub();
+        input = ReceiverInputDummy.stub();
     })
 
     it('should create a new receiver', async () => {
 
-        const input = ReceiverDummy.stub();
+        const input = ReceiverInputDummy.stub();
         const { status, body } = await request.post(`/receivers`).send(input)
 
         expect(status).toBe(201)
@@ -38,7 +38,6 @@ describe('Create receiver integration tests', () => {
         expect(status).toBe(400)
         expect(body.statusCode).toBeDefined()
         expect(body.message).toEqual('Bad Request')
-        expect(body.details).toBeDefined()
-                   
+        expect(body.details).toBeDefined()          
     })
 })

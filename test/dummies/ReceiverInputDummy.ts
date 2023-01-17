@@ -1,15 +1,16 @@
 import { fakerBr } from "js-brasil";
 import { ReceiverInput } from "../../src/domain/dto/ReceiverInput";
 
-export class ReceiverDummy {   
-    static stub(): ReceiverInput {
+export class ReceiverInputDummy {   
+    static stub(id?: number): ReceiverInput {
         const fakerReceiver = fakerBr.pessoa()
         const input = {
+                id: id ?? undefined,
                 name: fakerReceiver.nome,
                 status: 'DRAFT',
-                email: fakerReceiver.email,
+                email: fakerBr.email(),
                 pixKeyType: 'EMAIL',
-                pixKey: fakerReceiver.email
+                pixKey: fakerBr.email()
             }
         return input;
     }

@@ -1,7 +1,7 @@
 export enum PixKeyType {
     CPF = 'CPF',
-    CNPJ = 'ÇNPJ',
+    CNPJ = 'CNPJ',
     EMAIL = 'EMAIL',
     PHONE = 'PHONE',
-    RAMDOM_KEY = 'RAMDOM_KEY',
+    RANDOM_KEY = 'RANDOM_KEY',
 }

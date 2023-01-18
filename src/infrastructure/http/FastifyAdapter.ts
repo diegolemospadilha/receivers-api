@@ -2,11 +2,14 @@ require('dotenv').config()
 import fastify from "fastify";
 import { swaggerOptions } from "./docs/swagger";
 import HttpServer from "./HttpServer";
+import validator from './validator/Validator';
+
 export default class FastifyAdapter implements HttpServer {
     readonly app: any;
 
 	 constructor () {
 		this.app = fastify({ logger: { level: 'info' } })
+        this.app.setValidatorCompiler(({ schema }) => validator.compile(schema) as any);
 	}
 
     on(method: string, url: string, schema: any, callback: Function): void {

@@ -1,7 +1,8 @@
-import { Type } from "@sinclair/typebox";
+import { Static, Type } from "@sinclair/typebox";
 import { FastifySchema } from "fastify";
 import { PixKeyType } from "../../../domain/PixKeyType";
 import { ReceiverStatus } from "../../../domain/ReceiverStatus";
+import { customEnum } from "./CustomEnum";
 
 export const receiverIdBaseSchema = Type.Object({
     id: Type.Integer({
@@ -22,10 +23,10 @@ export const receiverBaseSchema = Type.Object({
             format: 'email'
         }),
     ),
-    status: Type.Enum(ReceiverStatus),
-    pixKeyType: Type.Enum(PixKeyType),
+    status: customEnum(ReceiverStatus),
+    pixKeyType: customEnum(PixKeyType),
     pixKey: Type.String({
-        maxLength: 255,
+        maxLength: 140,
         description: 'Receiver`s pix key' 
     }),
 })
@@ -46,10 +47,10 @@ export const receiverResponseBaseSchema = Type.Object({
             format: 'email'
         }),
     ),
-    status: Type.Enum(ReceiverStatus),
-    pixKeyType: Type.Enum(PixKeyType),
+    status: customEnum(ReceiverStatus),
+    pixKeyType: customEnum(PixKeyType),
     pixKey: Type.String({
-        maxLength: 255,
+        maxLength: 140,
         description: 'Receiver`s pix key' 
     }),
 }, {
@@ -63,17 +64,8 @@ export const getReceiversBaseSchema = Type.Object({
             description: 'Receiver`s name to be searched',
         })
     ),
-    status: Type.Optional(
-        Type.String({
-            description: 'Receiver`s status to be searched',
-        })
-    ),
-    pixKeyType: Type.Optional(
-        Type.String({
-            minimum: 1,
-            description: 'Receiver`s pix key type to be searched',
-        })
-    ),
+    status: Type.Optional(customEnum(ReceiverStatus)),
+    pixKeyType: Type.Optional(customEnum(PixKeyType)),
     pixKey: Type.Optional(
         Type.String({
             maxLength: 255,

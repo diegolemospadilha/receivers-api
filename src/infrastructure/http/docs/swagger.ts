@@ -1,6 +1,6 @@
 export const swaggerOptions = {
   routePrefix: '/docs',
-  swagger: {
+  openapi: {
     info: {
       title: 'receivers-api',
       description: 'API with CRUD operations related receivers',

@@ -1,8 +1,9 @@
 import CreateReceiver from "../../application/CreateReceiver";
 import DeleteReceiversByBatch from "../../application/DeleteReceiversInBatches";
 import GetAllReceivers from "../../application/GetAllReceivers";
+import GetReceiverById from "../../application/GetReceiverById";
 import UpdateReceiver from "../../application/UpdateReceiver";
-import { createReceiverDoc, deleteReceiversInBatchDoc, getReceiversDoc, receiverBaseSchema, updateReceiverDoc } from "../http/docs/receiver";
+import { createReceiverDoc, deleteReceiversInBatchDoc, getReceiverByIdDoc, getReceiversDoc, receiverBaseSchema, updateReceiverDoc } from "../http/docs/receiver";
 import HttpServer from "../http/HttpServer";
 
 export default class ReceiverController {
@@ -12,6 +13,7 @@ export default class ReceiverController {
         readonly getAllReceiversUseCase: GetAllReceivers,
         readonly updateReceiverUseCase: UpdateReceiver,
         readonly deleteReceiversByBatch: DeleteReceiversByBatch,
+        readonly getReceiverById: GetReceiverById,
     ){
         httpServer.on("post", "/receivers", {
             schema: createReceiverDoc
@@ -35,6 +37,16 @@ export default class ReceiverController {
                 page: parseInt(query.page)
             }
             const data = await getAllReceiversUseCase.execute(input);
+            return { data, status: 200 };
+        });
+
+        httpServer.on("get", "/receivers/:id", {
+            schema: getReceiverByIdDoc
+        },
+            async function (request: any) {
+            const { params } = request;
+
+            const data = await getReceiverById.execute(params.id);
             return { data, status: 200 };
         });
 

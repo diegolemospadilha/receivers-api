@@ -19,8 +19,6 @@ export default function composeErrorHandler(errorHandlers: ErrorHandler[] = []) 
     
         handledError = handledError || error;
 
-        handledError = handledError || error;
-
         if (handledError instanceof ApplicationError) {
           reply
             .status(handledError.statusCode || 500)
@@ -32,6 +30,5 @@ export default function composeErrorHandler(errorHandlers: ErrorHandler[] = []) 
 
       return;
     }
-      };
-
+  };
 }

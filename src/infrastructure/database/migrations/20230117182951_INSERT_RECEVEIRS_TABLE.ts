@@ -35,7 +35,7 @@ const combinationsToPixKeyType = [
     { type: 'CPF', value: fakerBr.cpf()},
     { type: 'CNPJ', value: fakerBr.cnpj()},
     { type: 'EMAIL', value: fakerBr.email()},
-    { type: 'PHONE', value: fakerBr.celular()},
-    { type: 'RANDOM_KEY', value: `dcta478j-196l-03fm-t6gh-4298er7845m2`},
+    { type: 'PHONE', value: `+55${fakerBr.celular().replace(/\D/g,'')}`},
+    { type: 'RANDOM_KEY', value: `42a57095-84f3-4a42-b9fb-d08935c86f47`},
 ]
 

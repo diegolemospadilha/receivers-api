@@ -122,6 +122,18 @@ export const internalServerErrorSchema = Type.Object({
     description: 'Internal Server Error Response'
 })
 
+export const detailsArrayMessages = Type.Array(
+    Type.Object({
+        message: Type.String({}),
+        missingProperty: Type.Optional(Type.String({})),
+        allowedValues: Type.Optional(Type.Array(Type.String({}))),
+    })
+)
+
+export const detailsMessage = Type.String({
+    example: 'Internal Server Error'
+})
+
 export const badRequestErrorSchema = Type.Object({
     statusCode: Type.Number({
         default: 400
@@ -129,13 +141,7 @@ export const badRequestErrorSchema = Type.Object({
     message: Type.String({
         default: 'Bad Request'
     }),
-    details: Type.Array(
-        Type.Object({
-            message: Type.String({}),
-            missingProperty: Type.Optional(Type.String({})),
-            allowedValue: Type.Optional(Type.String({})),
-        })
-    )
+    details: Type.Union([ detailsArrayMessages, detailsMessage])
 }, {
     description: 'Bad Request Error Response'
 })

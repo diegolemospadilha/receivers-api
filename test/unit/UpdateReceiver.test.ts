@@ -15,7 +15,7 @@ describe('Update receiver use case unit tests', () => {
     }
     it('Should update a receiver', async () => {
         const fakerId = 71;
-        const input = ReceiverInputDummy.stub(71);
+        const input = ReceiverInputDummy.stub({ id: 71 });
         const receiver = ReceiverDummy.stub(input);
         repositoryMock.getById = jest.fn().mockResolvedValue(receiver)
         repositoryMock.update = jest.fn().mockResolvedValue(fakerId)
@@ -32,7 +32,7 @@ describe('Update receiver use case unit tests', () => {
 
     it('Should not update a receiver when receiver is not found', async () => {
         const fakerId = 71;
-        const input = ReceiverInputDummy.stub(71);
+        const input = ReceiverInputDummy.stub({ id: 71 });
 
         repositoryMock.getById = jest.fn().mockResolvedValue(null)
         repositoryMock.update = jest.fn().mockResolvedValue(fakerId)

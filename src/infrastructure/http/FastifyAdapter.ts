@@ -1,3 +1,4 @@
+require('dotenv').config()
 import fastify from "fastify";
 import { swaggerOptions } from "./docs/swagger";
 import HttpServer from "./HttpServer";
@@ -16,10 +17,21 @@ export default class FastifyAdapter implements HttpServer {
     }
 
     listen(port: number): void {
-        this.app.listen(port);
+        this.app.listen(port, process.env.APP_HOST || '0.0.0.0');
     }
 
     public async loadSwagger(){
-        await this.app.register(require('fastify-swagger'), swaggerOptions)   
+        Promise.all([
+            this.app.register(require('fastify-cors'), { 
+                origin: [
+                `http://localhost:${process.env.PORT}`,
+                `http://127.0.0.1:${process.env.PORT}`, 
+                process.env.APP_HOST
+                ],
+                methods: ['GET', 'PUT', 'POST', 'DELETE']
+            }),
+            this.app.register(require('fastify-swagger'), swaggerOptions)   
+        ])
+        
     }
 }

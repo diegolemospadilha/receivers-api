@@ -3,22 +3,24 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
-    "start": "node dist/main.js",
+    "start": "node dist/src/main.js",
     "test": "node node_modules/.bin/jest --detectOpenHandles --forceExit --runInBand --verbose --colors",
     "test:unit": "node node_modules/.bin/jest --testPathPattern=test/unit --detectOpenHandles --forceExit --runInBand --verbose --colors",
     "test:integration": "node node_modules/.bin/jest --testPathPattern=test/integration --detectOpenHandles --forceExit --runInBand --verbose --colors",
     "dev": "ts-node-dev src/main.ts",
     "build": "rimraf dist && tsc",
-    "lint": "eslint ./src --ext .ts",
-    "lint:fix": "eslint ./src --ext .ts --fix",
-    "lint-staged": "lint-staged",
+    "postinstall": "tsc",
     "knex:migrate:make": "knex --knexfile src/infrastructure/database/knexfile.ts migrate:make",
     "knex:migrate:latest": "knex --knexfile src/infrastructure/database/knexfile.ts migrate:latest",
     "knex:migrate:rollback": "knex --knexfile src/infrastructure/database/knexfile.ts migrate:rollback"
   },
   "dependencies": {
     "@sinclair/typebox": "^0.25.20",
+    "dotenv": "^16.0.3",
     "fastify": "^3.29.4",
     "fastify-cors": "6.1.0",
     "fastify-plugin": "^4.4.0",
@@ -33,7 +35,6 @@
     "@types/jest": "^29.2.5",
     "@types/node": "^18.11.18",
     "@types/supertest": "^2.0.12",
-    "dotenv": "^16.0.3",
     "ts-jest": "^29.0.1",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",

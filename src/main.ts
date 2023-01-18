@@ -1,3 +1,4 @@
+require('dotenv').config()
 import CreateReceiver from "./application/CreateReceiver";
 import DeleteReceiversByBatch from "./application/DeleteReceiversInBatches";
 import GetAllReceivers from "./application/GetAllReceivers";
@@ -32,4 +33,5 @@ const receiverController = new ReceiverController(
     deleteReceiverInBatchs
 )
 
-httpServer.listen(3000)
+const port = parseInt(process.env.PORT) ?? 3000
+httpServer.listen(port)

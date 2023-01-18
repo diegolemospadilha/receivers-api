@@ -72,7 +72,8 @@ $ yarn test:integration
 ```
 ## :orange_book: Documentação
 
-A documentação pode ser [visualizada aqui](https://receivers-api.herokuapp.com/docs/)
+- [API Reference - Swagger](https://receivers-api.herokuapp.com/docs/)
+- [Collection Postman - com exemplos de requisições](https://documenter.getpostman.com/view/8440827/2s8ZDVbPgt)
 
 ## :memo: Licença
 
